@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMarklet</title>
+     <style>
+         body {
+            font-family: Arial, sans-serif;
+            transition: background-color 0.3s ease;
+            background-color: #2b2b2b;
+            color: #bcbcbc;
+        }
+        input[type=text] {
+        width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        align-self: center;
+        }
+        input[type=textarea] {
+        width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        align-self: center;
+        }
+        input[type=button] {
+        width: 50%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        align-self: center;
+        }
+
+        .boxed-text {
+            border: 2px solid currentColor;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        div[class*=box] {
+  height: 33.33%;
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box-2 { background-color: #3C3C3C; }
+.btn {
+  line-height: 50px;
+  height: 50px;
+  text-align: center;
+  width: 250px;
+  cursor: pointer;
+  background-color: #3c3c3c;
+}
+.btn-two {
+
+  color: #FFF;
+  transition: all 0.5s;
+  position: relative; 
+}
+.btn-two span {
+  z-index: 2; 
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%; 
+}
+.btn-two::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.5s;
+  border: 1px solid rgba(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.1);
+}
+.btn-two::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  transition: all 0.5s;
+  border: 1px solid rgba(255,255,255,0.2);
+  background-color: rgba(255,255,255,0.1);
+}
+.btn-two:hover::before {
+  transform: rotate(-45deg);
+  background-color: rgba(255,255,255,0);
+}
+.btn-two:hover::after {
+  transform: rotate(45deg);
+  background-color: rgba(255,255,255,0);
+}
+input[type=text] {
+  width: 160px;
+  height: 60px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+
+}
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+input[type=color] {
+  width: 160px;
+  height: 60px;
+  padding: 6px 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+
+}
+input[type=color]:focus {
+  border: 3px solid #555;
+}
+textarea {
+  width: 620px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+textarea:focus {
+  border: 3px solid #555;
+}
+    </style>
+</head>
+<body>
+    <br>
+    <div style="display: flex; justify-content: center;">
+    <textarea rows="5" cols="80" id="userDescription", placeholder="Message/Сообщение"></textarea>
+    </div>
+    <br>
+<br>
+    <div style="    display: flex;
+    justify-content: center;">
+        <div class="btn btn-two">
+          <span onclick="sendWhook()", id= "btnSubmit">SEND</span>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function hexToDec(hex) {
+        return parseInt(hex, 16);
+    }
+    function getValue(element){
+        console.log("value")
+        var elval = document.getElementById(element);
+        return elval.value;
+    }
+    function sendWhook(){
+        var userName = "woogiemouse";
+        var userAvatar = "https://i.pinimg.com/originals/c2/8e/fb/c28efb7d37f2cf10b0a45ef6d95781a5.jpg";
+        var userDescription = getValue("userDescription");
+        var userColor = hexToDec(getValue("userColor").slice(1));
+        let json = { content: userDescription,
+            username: userName,
+            avatar_url: userAvatar};
+        fetch('https://discord.com/api/webhooks/1187805761749929994/ZiI6Ux28syl-ywa5bTDCZj0iylM_NTFcCs--DS2aPZFO6R2ptiPPR_n-caf-Cx-RX6lt', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(json)
+        });
+    }
+</script>
